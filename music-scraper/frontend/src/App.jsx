@@ -1,10 +1,14 @@
 import { useState } from "react";
 import "./App.css";
+import { ThreeDots } from "react-loader-spinner";
 
 function App() {
   const [url, setUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State to track loading status
+
   const handleDownload = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
     try {
       const response = await fetch(
         `http://127.0.0.1:5000/?playlist_url=${encodeURIComponent(url)}`,
@@ -13,45 +17,39 @@ function App() {
         }
       );
       if (response.ok) {
-        // Create a Blob from the response
         const blob = await response.blob();
-        // Create an anchor element and trigger download
         const downloadUrl = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = downloadUrl;
-        link.setAttribute("download", "songs.zip"); // Set the file name
+        link.setAttribute("download", "songs.zip");
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
-        const playlistID = url.split('pl.u-')[1];
-        handleCleanup(playlistID);
+        const playlistID = url.split("pl.u-")[1];
+        await handleCleanup(playlistID);
       } else {
         console.error("Failed to download songs");
       }
     } catch (error) {
       console.error("Error:", error);
     }
+    setIsLoading(false); // End loading
   };
 
-const handleCleanup = async (playlistID) => {
-  try {
-    const response = await fetch(`http://127.0.0.1:5000/cleanup/${playlistID}`, {
-      method: 'GET',
-    });
-    if (response.ok) {
-      console.log('Cleanup successful');
-    } else {
-      console.error('Cleanup failed');
+  const handleCleanup = async (playlistID) => {
+    try {
+      await fetch(`http://127.0.0.1:5000/cleanup/${playlistID}`, {
+        method: "GET",
+      });
+    } catch (error) {
+      console.error("Error during cleanup:", error);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-
-}
+  };
 
   return (
     <>
       <h1>🎶 MelodyMagnet 🎶</h1>
+      <p>Enter the URL of your Apple Music Playlist below, and download all its tracks as MP3 files directly to your device.</p>
       <div className="container">
         <div className="container__item">
           <form className="form" onSubmit={handleDownload}>
@@ -62,10 +60,18 @@ const handleCleanup = async (playlistID) => {
               className="form__field"
               placeholder="Enter URL Here"
             />
-            <div className="button-container">
-              <button type="submit" className="btn btn--primary uppercase">
-                Download Songs
-              </button>
+            <div className="button-or-loader">
+              {!isLoading ? (
+                <button type="submit" className="btn btn--primary uppercase">
+                  Download Songs
+                </button>
+              ) : (
+                <ThreeDots
+                  color="#61DAFB" // Spinner color
+                  height={80}
+                  width={80}
+                />
+              )}
             </div>
           </form>
         </div>

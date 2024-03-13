@@ -214,3 +214,103 @@ button {
     font-size: 0.8em; 
   }
 }
+
+
+
+/* Base styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #20232A;
+  color: #61DAFB;
+  padding: 40px 0;
+  text-align: center;
+}
+
+h1 {
+  color: #61DAFB;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #FFFFFF;
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* Form styling */
+.form {
+  background: #282C34;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form__field {
+  width: 27rem;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border-radius: 4px;
+  border: 2px solid #61DAFB;
+  background: #282C34;
+  color: #61DAFB;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form__field::placeholder {
+  color: #61DAFB;
+}
+
+.form__field:focus {
+  border-color: #FFFFFF;
+}
+
+/* Button styling */
+.btn {
+  background-color: #61DAFB;
+  color: #20232A;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #52a8d1;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form__field {
+    width: 80%;
+  }
+
+  p {
+    padding: 0 20px;
+  }
+}
+
+
+
+.button-or-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px; /* Adjust to match the button's height if necessary */
+}
+
+/* Loader specific styles if needed */
+.react-loader-spinner {
+  display: flex;
+  justify-content: center;
+}
