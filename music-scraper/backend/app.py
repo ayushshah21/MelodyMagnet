@@ -34,7 +34,6 @@ def wait_for_page_load(driver, timeout=30):
 
 def getSongLink(song):
     api_key = os.environ.get('YOUTUBE_API_KEY')
-    # api_key = 'AIzaSyAmL_KrHlKWy7r0yuAwSuPXvQw4MaNSMo0'
 
     
     youtube = build("youtube", "v3", developerKey=api_key)
@@ -65,6 +64,19 @@ def main():
     if not playlist_url:
         return "No playlist URL provided", 400
     playlistId = playlist_url.split('pl.u-')[1]
+
+    # # Set up Chrome options for headless execution
+    # chrome_options = Options()
+    # chrome_options.add_argument("--headless")  # Enables headless mode
+    # chrome_options.add_argument("--no-sandbox")  # Bypasses OS security model
+    # chrome_options.add_argument("--disable-dev-shm-usage")  # Addresses limited resource problems
+
+    # # Initialize ChromeService
+    # svc = webdriver.ChromeService(executable_path=binary_path)
+    # # Create a WebDriver instance with the specified service and options
+    # driver = webdriver.Chrome(service=svc, options=chrome_options)
+
+
     svc = webdriver.ChromeService(executable_path=binary_path)
     driver = webdriver.Chrome(service=svc)
 
