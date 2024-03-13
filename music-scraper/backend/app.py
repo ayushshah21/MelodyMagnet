@@ -1,6 +1,6 @@
 from flask import Flask, send_file, Response, redirect, url_for, request
 from selenium import webdriver
-from chromedriver_py import binary_path # this will get you the path variable
+from chromedriver_py import binary_path 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
@@ -10,8 +10,9 @@ from googleapiclient.errors import HttpError
 from zipfile import ZipFile
 from io import BytesIO
 from flask_cors import CORS
-import shutil  # Import shutil for folder deletion
+import shutil  
 from dotenv import load_dotenv
+from selenium.webdriver.chrome.options import Options
 
 app = Flask(__name__)
 CORS(app)  # Setup CORS
@@ -33,17 +34,17 @@ def wait_for_page_load(driver, timeout=30):
 
 def getSongLink(song):
     api_key = os.environ.get('YOUTUBE_API_KEY')
+    # api_key = 'AIzaSyAmL_KrHlKWy7r0yuAwSuPXvQw4MaNSMo0'
 
     
     youtube = build("youtube", "v3", developerKey=api_key)
 
     try:
-        # Example API request: Search for videos by a query keyword
         request = youtube.search().list(
             part="id,snippet",
             maxResults=1,
             type='video',
-            q=song  # Change your query here
+            q=song 
         )
         response = request.execute()
 
@@ -66,11 +67,10 @@ def main():
     playlistId = playlist_url.split('pl.u-')[1]
     svc = webdriver.ChromeService(executable_path=binary_path)
     driver = webdriver.Chrome(service=svc)
-    # driver.get('https://music.apple.com/us/playlist/run/pl.u-gxblgGltb33krX7')
+
+
     driver.get(f'https://music.apple.com/us/playlist/run/{playlist_url}')
     wait_for_page_load(driver)
-    # Your scraping logic here
-    #songElements = driver.find_elements(By.CLASS_NAME, "songs-list-row__song-name-wrapper svelte-154tqzm")
     JS = '''
         let songs = [];
         let songElements = document.getElementsByClassName("songs-list-row__song-name-wrapper svelte-154tqzm");
@@ -94,7 +94,6 @@ def main():
         # save the file 
         new_file = path + '/' + song + '.mp3'
         os.rename(out_file, new_file)
-        # Assuming `songs` is your list of song names
         songs_query = ','.join(songs)  # Join list into a string separated by commas
     
         
@@ -122,11 +121,9 @@ def download_files(playlistID):
             # Add file to the ZIP file
             zip_file.write(secure_path, arcname=os.path.basename(song))
 
-    # Important: Move the pointer to the beginning of the BytesIO buffer before sending
+    # Move the pointer to the beginning of the BytesIO buffer before sending
     zip_buffer.seek(0)
 
-    #Delete playlist subfolder
-    # directory.r
 
     # Send the ZIP file to the client
     return Response(zip_buffer.getvalue(), mimetype='application/zip', headers={'Content-Disposition': 'attachment;filename=songs.zip'})
