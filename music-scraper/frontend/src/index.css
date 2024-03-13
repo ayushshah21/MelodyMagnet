@@ -1,0 +1,216 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  background-color: #191F22;
+  color: black;
+  font-weight: 700;
+  height: 100%; /* Ensure full height */
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  }
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+.app h1{
+  
+}
+/* Variables */
+:root {
+  --background: #f5f6fa;
+  --text: #9c9c9c;
+  --input-bg-color: #fff;
+  --input-text-color: #a3a3a3;
+  --button-bg-color: #7f8ff4;
+  --button-text-color: #fff;
+}
+
+/* Root */
+body {
+  background: var(--background);
+  color: var(--text);
+  font: 1rem "PT Sans", sans-serif;
+}
+
+html, body, .container {
+  height: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--button-bg-color);
+}
+
+/* Helper */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--button-bg-color);
+  color: var(--button-text-color);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+  border-radius: 2px;
+  padding: 12px 36px;
+}
+
+.btn--primary:hover {
+  background: #6c7ae0; /* Darkened #7f8ff4 by 4% */
+}
+
+.btn--primary:active {
+  background: var(--button-bg-color);
+  box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, .2);
+}
+
+.btn--inside {
+  margin-left: -96px;
+}
+
+/* Form */
+.form__field {
+  width: 30rem;
+  background: var(--input-bg-color);
+  color: var(--input-text-color);
+  font: inherit;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+  border: 0;
+  outline: 0;
+  padding: 22px 18px;
+}
+.button-container {
+  margin-top: 20px; 
+  text-align: center; 
+}
+/* Variables and base styles remain unchanged */
+
+/* Responsive font size for headings */
+h1 {
+  font-size: 3.2em; 
+}
+
+/* Responsive button */
+button {
+  padding: 0.6em 1.2em; 
+  font-size: 1em; 
+}
+
+/* Media Query for small devices (e.g., mobile phones) */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em; 
+  }
+
+  .form__field, .button-container button {
+    width: 90%; 
+    margin: 0 auto; 
+    font-size: 0.9em; 
+  }
+
+  .button-container {
+    margin-top: 1em; 
+  }
+
+  .btn--primary {
+    padding: 10px 30px; 
+  }
+}
+
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.5em; 
+  }
+
+  .form__field, .button-container button {
+    font-size: 0.8em; 
+  }
+}
