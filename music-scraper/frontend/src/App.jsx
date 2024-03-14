@@ -9,9 +9,12 @@ function App() {
   const handleDownload = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
+    const baseURL = "http://18.222.122.47:80/";
+    const playlistID = url.split("pl.u-")[1];
+    const playlistName = url.split("/")[5];
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/?playlist_url=${encodeURIComponent(url)}`,
+        `${baseURL}?playlist_id=${encodeURIComponent(playlistID)}&playlist_name=${encodeURIComponent(playlistName)}`,
         {
           method: "GET",
         }

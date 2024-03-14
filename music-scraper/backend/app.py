@@ -60,10 +60,14 @@ def getSongLink(song):
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    playlist_url = request.args.get('playlist_url')
-    if not playlist_url:
+    playlistID = request.args.get('playlist_id')
+    playlistName = request.args.get('playlist_name')
+    print(playlistID)
+    print(playlistName)
+    if not playlistID:
         return "No playlist URL provided", 400
-    playlistId = playlist_url.split('pl.u-')[1]
+    if not playlistName:
+        return "No playlist name provided", 400
 
     # # Set up Chrome options for headless execution
     # chrome_options = Options()
@@ -81,7 +85,7 @@ def main():
     driver = webdriver.Chrome(service=svc)
 
 
-    driver.get(f'https://music.apple.com/us/playlist/run/{playlist_url}')
+    driver.get(f'https://music.apple.com/us/playlist/{playlistName}/pl.u-{playlistID}')
     wait_for_page_load(driver)
     JS = '''
         let songs = [];
@@ -93,7 +97,7 @@ def main():
         return songs;  // Returning the length for capturing it in Python'''
     songs = driver.execute_script(JS)
     driver.quit()
-    path = os.path.join('./downloads', playlistId)
+    path = os.path.join('./downloads', playlistID)
     os.mkdir(path)
 
 
@@ -109,7 +113,7 @@ def main():
         songs_query = ','.join(songs)  # Join list into a string separated by commas
     
         
-    return redirect(url_for('download_files', playlistID=playlistId, songs=songs_query))
+    return redirect(url_for('download_files', playlistID=playlistID, songs=songs_query))
     
     
 @app.route('/downloads/<playlistID>')
