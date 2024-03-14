@@ -9,7 +9,8 @@ function App() {
   const handleDownload = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
-    const baseURL = "http://18.222.122.47:80/";
+    // const baseURL = "http://18.222.122.47:80/";
+    const baseURL = "http://127.0.0.1:5000/"
     const playlistID = url.split("pl.u-")[1];
     const playlistName = url.split("/")[5];
     try {
