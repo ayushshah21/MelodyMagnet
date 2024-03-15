@@ -4,6 +4,8 @@ Created by: **Ayush Shah**
 
 This web app: **allows users to download songs directly from their Apple Music Playlists directly to their devices as MP3 files, free of cost**
 
+Hosted on AWS: [MelodyMagnet](http://melodymagnet.s3-website.us-east-2.amazonaws.com/)
+
 ## Video Walkthrough
 
 Here's a walkthrough of the implemented features:
