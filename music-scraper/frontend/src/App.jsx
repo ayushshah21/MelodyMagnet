@@ -9,8 +9,8 @@ function App() {
   const handleDownload = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
-    // const baseURL = "http://18.222.122.47:80/";
-    const baseURL = "http://127.0.0.1:5000/"
+    const baseURL = "http://18.222.122.47:80/";
+    // const baseURL = "http://127.0.0.1:5000/"
     const playlistID = url.split("pl.u-")[1];
     const playlistName = url.split("/")[5];
     try {
@@ -29,8 +29,8 @@ function App() {
         document.body.appendChild(link);
         link.click();
         link.parentNode.removeChild(link);
-        const playlistID = url.split("pl.u-")[1];
-        await handleCleanup(playlistID);
+        // const playlistID = url.split("pl.u-")[1];
+        // await handleCleanup(playlistID);
       } else {
         console.error("Failed to download songs");
       }
@@ -40,15 +40,15 @@ function App() {
     setIsLoading(false); // End loading
   };
 
-  const handleCleanup = async (playlistID) => {
-    try {
-      await fetch(`http://127.0.0.1:5000/cleanup/${playlistID}`, {
-        method: "GET",
-      });
-    } catch (error) {
-      console.error("Error during cleanup:", error);
-    }
-  };
+  // const handleCleanup = async (playlistID) => {
+  //   try {
+  //     await fetch(`http://127.0.0.1:5000/cleanup/${playlistID}`, {
+  //       method: "GET",
+  //     });
+  //   } catch (error) {
+  //     console.error("Error during cleanup:", error);
+  //   }
+  // };
 
   return (
     <>

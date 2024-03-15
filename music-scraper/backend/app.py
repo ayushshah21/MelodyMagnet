@@ -110,19 +110,19 @@ def main():
         # save the file 
         new_file = path + '/' + song + '.mp3'
         os.rename(out_file, new_file)
-        songs_query = ','.join(songs)  # Join list into a string separated by commas
+        #songs_query = ','.join(songs)  # Join list into a string separated by commas
     
-        
-    return redirect(url_for('download_files', playlistID=playlistID, songs=songs_query))
+    return download_files(playlistID=playlistID, songs=songs)
+    #return redirect(url_for('download_files', playlistID=playlistID, songs=songs_query))
     
     
-@app.route('/downloads/<playlistID>')
-def download_files(playlistID):
-    print(f"Download files called with playlistID: {playlistID}")
-    songs_query = request.args.get('songs', '')
-    print(f"Songs query: {songs_query}")
-    songs = songs_query.split(',') if songs_query else []
-    print(f"Songs list: {songs}")
+#@app.route('/downloads/<playlistID>')
+def download_files(playlistID, songs):
+    #print(f"Download files called with playlistID: {playlistID}")
+    #songs_query = request.args.get('songs', '')
+    #print(f"Songs query: {songs_query}")
+    #songs = songs_query.split(',') if songs_query else []
+    #print(f"Songs list: {songs}")
     appendSuffix = ".mp3"
     modified_list = [item + appendSuffix for item in songs]
     directory = os.path.join('./downloads', playlistID)
@@ -140,11 +140,13 @@ def download_files(playlistID):
     # Move the pointer to the beginning of the BytesIO buffer before sending
     zip_buffer.seek(0)
 
+    #Remove directory from server
+    cleanup(playlistID=playlistID)
 
     # Send the ZIP file to the client
     return Response(zip_buffer.getvalue(), mimetype='application/zip', headers={'Content-Disposition': 'attachment;filename=songs.zip'})
 
-@app.route('/cleanup/<playlistID>')
+#@app.route('/cleanup/<playlistID>')
 def cleanup(playlistID):
     directory = os.path.join('./downloads', playlistID)
     try:
