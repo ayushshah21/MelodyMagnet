@@ -13,6 +13,7 @@ from flask_cors import CORS
 import shutil  
 from dotenv import load_dotenv
 from selenium.webdriver.chrome.options import Options
+from urllib.parse import unquote
 
 app = Flask(__name__)
 CORS(app)  # Setup CORS
@@ -27,7 +28,7 @@ def test_cors():
     return "CORS should be enabled for this response."
 
 
-def wait_for_page_load(driver, timeout=30):
+def wait_for_page_load(driver, timeout=90):
     WebDriverWait(driver, timeout).until(
         lambda d: d.execute_script("return document.readyState") == "complete"
     )
@@ -62,12 +63,42 @@ def getSongLink(song):
 def main():
     playlistID = request.args.get('playlist_id')
     playlistName = request.args.get('playlist_name')
+    streamingType = request.args.get('streaming_type')
     print(playlistID)
     print(playlistName)
+    print(streamingType)
     if not playlistID:
         return "No playlist URL provided", 400
     if not playlistName:
         return "No playlist name provided", 400
+    if not streamingType:
+        return "No streaming type provided", 400
+    
+    playlistURL = ''
+    JS = ''
+
+    playlistID = unquote(playlistID)
+    print(playlistID)
+    
+    if streamingType == "apple":
+        playlistURL = f'https://music.apple.com/us/playlist/{playlistName}/pl.u-{playlistID}'
+        JS = '''
+        let songs = [];
+        let songElements = document.getElementsByClassName("songs-list-row__song-name-wrapper svelte-154tqzm");
+        for (let i = 0; i < songElements.length; i++) {
+            songs.push(songElements[i].innerText);
+        }
+        return songs;  // Returning the length for capturing it in Python'''
+    elif streamingType == 'spotify':
+        playlistURL = f'https://open.spotify.com/playlist/{playlistID}' #DO THIS
+        JS = '''
+        let songs = [];
+        let songElements = document.getElementsByClassName("iCQtmPqY0QvkumAOuCjr");
+        for (let i = 0; i < songElements.length; i++) {
+            songs.push(songElements[i].innerText);
+        }
+        return songs;  // Returning the length for capturing it in Python'''
+
 
     # # Set up Chrome options for headless execution
     # chrome_options = Options()
@@ -85,17 +116,11 @@ def main():
     driver = webdriver.Chrome(service=svc)
 
 
-    driver.get(f'https://music.apple.com/us/playlist/{playlistName}/pl.u-{playlistID}')
+    driver.get(playlistURL)
     wait_for_page_load(driver)
-    JS = '''
-        let songs = [];
-        let songElements = document.getElementsByClassName("songs-list-row__song-name-wrapper svelte-154tqzm");
-        for (let i = 0; i < songElements.length; i++) {
-            songs.push(songElements[i].innerText);
-        }
-        console.log('Songs count:', songs.length);
-        return songs;  // Returning the length for capturing it in Python'''
+    
     songs = driver.execute_script(JS)
+    print(songs)
     driver.quit()
     path = os.path.join('./downloads', playlistID)
     os.mkdir(path)
