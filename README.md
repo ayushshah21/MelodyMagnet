@@ -9,7 +9,7 @@ Hosted on AWS: [MelodyMagnet](http://melodymagnet.s3-website.us-east-2.amazonaws
 ## Video Walkthrough
 
 Here's a walkthrough of the implemented features:
-https://www.loom.com/share/01acee5d2a8f4626b7bb90a396a315ca?sid=10aec572-2347-49a6-9d95-73cff00e13c9
+[https://www.loom.com/share/01acee5d2a8f4626b7bb90a396a315ca?sid=10aec572-2347-49a6-9d95-73cff00e13c9](https://www.loom.com/share/b94cc6fa9bed40e9b17f65f9f90e5b28?sid=498ac041-2c17-42b2-a6fa-85b83e9cf7d7)
 
 ## Notes
 
