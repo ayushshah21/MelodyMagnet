@@ -6,7 +6,7 @@ This web app: **allows users to download songs directly from their Apple Music P
 
 Hosted on AWS: [MelodyMagnet](http://melodymagnet.s3-website.us-east-2.amazonaws.com/)
 
-<img width="1419" alt="Screenshot 2024-03-16 at 3 05 45 PM" src="https://github.com/ayushshah21/MelodyMagnet/assets/97319230/8a3c3690-a6be-4940-b8ba-74a9eccf0eaf">
+<img width="700" alt="Screenshot 2024-03-16 at 3 05 45 PM" src="https://github.com/ayushshah21/MelodyMagnet/assets/97319230/8a3c3690-a6be-4940-b8ba-74a9eccf0eaf">
 
 
 ## Video Walkthrough
