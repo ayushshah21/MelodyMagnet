@@ -20,5 +20,5 @@ Some challenges we faced:
 - Keeping all of the songs together in a zip file: I was originally sending back each song one by one which would be very inconvenient for the users to maintain and store on their devices
 
 ## Authors
-- [Aryan Shah](https://github.com/ghostarmour)
+- [Aryan Shah](https://github.com/ghostarmor)
 - [Ayush  Shah](https://github.com/ayushshah21)
